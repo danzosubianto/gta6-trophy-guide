@@ -130,8 +130,8 @@ function buildCard(trophy) {
     badges.append(count);
   }
 
-  top.append(check, textBox, badges);
-  card.append(top);
+  top.append(check, textBox);
+  card.append(top, badges);
 
   const guideBtn = document.createElement("button");
   guideBtn.type = "button";

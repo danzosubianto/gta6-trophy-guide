@@ -102,7 +102,8 @@ main { max-width: 1180px; margin: 16px auto 0; padding: 0 20px 10px; }
 .card-check { width: 22px; height: 22px; margin-top: 3px; accent-color: var(--teal); flex: none; cursor: pointer; }
 .card-name { font-size: 17px; font-weight: 700; margin: 0; }
 .card-desc { margin: 2px 0 0; color: var(--ink-dim); font-size: 14px; font-style: italic; }
-.badges { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; flex: none; }
+.badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.card-top > div { flex: 1; min-width: 0; }
 .badge { font-size: 11px; font-weight: 700; letter-spacing: .4px; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; }
 .badge.grade-platinum { background: var(--platinum); color: #0b2a3a; }
 .badge.grade-gold { background: var(--gold); color: #3a2c00; }
@@ -120,7 +121,8 @@ main { max-width: 1180px; margin: 16px auto 0; padding: 0 20px 10px; }
 .guide-body p { margin: 0 0 8px; }
 .src { font-size: 12px; color: var(--ink-dim); }
 .src a { color: var(--teal); }
-.masked .card-name, .masked .card-desc { color: transparent; text-shadow: 0 0 12px rgba(242, 237, 228, .75); user-select: none; }
+.card.masked { border-style: dashed; border-color: rgba(167, 139, 250, .6); }
+.masked .card-name, .masked .card-desc { color: #c9b8f5; }
 
 .panel {
   background: var(--card); border: 1px solid rgba(255, 255, 255, .12);
