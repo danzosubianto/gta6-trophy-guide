@@ -67,8 +67,10 @@ function isMasked(trophy) {
 }
 
 function sourceLink(label) {
-  const found = sourcesByName.get(label.replace(/ — .*$/, ""));
-  return found;
+  // Per-trophy labels are short ("Exophase — official list", "Output Lag guide");
+  // the footer list carries the full names. Match on the leading brand name.
+  const brand = label.replace(/ — .*$/, "").replace(/ guide$/, "");
+  return sourcesByName.get(brand);
 }
 
 function buildCard(trophy) {
@@ -282,6 +284,60 @@ function switchView(view) {
   document.getElementById("toolbar").style.display = view === "checklist" ? "" : "none";
 }
 
+function exportProgress() {
+  const payload = {
+    app: "leonida-legend",
+    game: "Grand Theft Auto VI",
+    platform: "PlayStation 5",
+    exportedAt: new Date().toISOString(),
+    earned: [...earnedIds].sort((a, b) => a - b),
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "gta6-trophy-progress.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function importProgress(file) {
+  const data = JSON.parse(await file.text());
+  const ids = Array.isArray(data) ? data : data.earned;
+  if (!Array.isArray(ids)) throw new Error("No earned list in that file.");
+  earnedIds = new Set(ids.filter((id) => trophiesById.has(id)));
+  saveEarned();
+  renderAll();
+}
+
+function applyUrlParams() {
+  // Shareable views: ?view=roadmap, ?kind=crime, ?grade=silver, ?open=40,
+  // ?spoilers=on, and ?seed=2,3,15 to pre-mark trophies on a fresh browser
+  // (handy for showing a friend — or a screenshot — a run in progress).
+  const params = new URLSearchParams(location.search);
+  const seed = params.get("seed");
+  if (seed && localStorage.getItem(EARNED_KEY) === null) {
+    earnedIds = new Set(seed.split(",").map(Number).filter((id) => trophiesById.has(id)));
+    saveEarned();
+  }
+  if (params.get("spoilers") === "on") {
+    spoilerProtection = true;
+    saveSpoilerSetting();
+    document.getElementById("spoiler-toggle").checked = true;
+  }
+  const kind = params.get("kind");
+  if (kind && KIND_FILTERS.some((f) => f.id === kind)) {
+    activeKind = kind;
+    buildKindChips();
+  }
+  const grade = params.get("grade");
+  if (grade) document.getElementById("grade-filter").value = grade;
+  const open = Number(params.get("open"));
+  if (trophiesById.has(open)) openGuideId = open;
+  const view = params.get("view");
+  if (view === "roadmap" || view === "missables" || view === "checklist") switchView(view);
+}
+
 async function init() {
   const response = await fetch("data/trophies.json");
   const data = await response.json();
@@ -306,6 +362,24 @@ async function init() {
     tab.addEventListener("click", () => switchView(tab.dataset.view));
   }
 
+  document.getElementById("export-btn").addEventListener("click", exportProgress);
+  document.getElementById("import-file").addEventListener("change", async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      await importProgress(file);
+    } catch {
+      alert("That file does not look like an exported progress file.");
+    }
+    event.target.value = "";
+  });
+  document.getElementById("reset-btn").addEventListener("click", () => {
+    earnedIds = new Set();
+    saveEarned();
+    renderAll();
+  });
+
+  applyUrlParams();
   renderAll();
 }
 
