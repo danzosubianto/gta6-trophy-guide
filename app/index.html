@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Legend — GTA VI Trophy Guide &amp; Tracker (PS5)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">LL</div>
+      <div>
+        <h1>Leonida Legend</h1>
+        <p class="tagline">The GTA VI trophy guide &amp; tracker — all 55 PlayStation 5 trophies, with a roadmap to the platinum.</p>
+      </div>
+    </div>
+    <div class="progress-box" aria-live="polite">
+      <div class="progress-line"><span id="progress-count">0 / 55</span><span id="progress-pct">0%</span></div>
+      <div class="progress-bar"><div id="progress-fill"></div></div>
+      <div class="grade-counts" id="grade-counts"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Views">
+  <button class="tab is-active" id="tab-checklist" data-view="checklist" role="tab">Checklist</button>
+  <button class="tab" id="tab-roadmap" data-view="roadmap" role="tab">Roadmap to the platinum</button>
+  <button class="tab" id="tab-missables" data-view="missables" role="tab">Missables &amp; save rules</button>
+</nav>
+
+<section class="toolbar" id="toolbar">
+  <div class="toolbar-row">
+    <label class="search-label">Search
+      <input id="search" type="search" placeholder="Trophy, mission, character…" autocomplete="off">
+    </label>
+    <label>Grade
+      <select id="grade-filter">
+        <option value="all">All grades</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+      </select>
+    </label>
+    <label>Status
+      <select id="status-filter">
+        <option value="all">All</option>
+        <option value="earned">Earned</option>
+        <option value="remaining">Remaining</option>
+      </select>
+    </label>
+    <label class="spoiler-toggle">
+      <input id="spoiler-toggle" type="checkbox">
+      Spoiler protection — hide story trophies until earned
+    </label>
+  </div>
+  <div class="toolbar-row chips" id="kind-chips" role="group" aria-label="Filter by kind"></div>
+  <div class="toolbar-row io-row">
+    <button id="export-btn" type="button">Export progress (.json)</button>
+    <label class="import-label">Import progress
+      <input id="import-file" type="file" accept="application/json,.json">
+    </label>
+    <button id="reset-btn" type="button">Reset</button>
+    <span class="save-note">Progress is saved in this browser (localStorage). Nothing leaves the device; the app works fully offline.</span>
+  </div>
+</section>
+
+<main>
+  <section id="view-checklist">
+    <p class="result-line" id="result-line"></p>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section id="view-roadmap" hidden>
+    <div class="roadmap-intro panel">
+      <h2>Roadmap to the platinum</h2>
+      <p>Nine phases, in the order the game lets you do them. The story comes first because it unlocks everything else;
+      the 100% checklist comes last because it asks for more than any single trophy does. One playthrough is enough —
+      if you keep the save rules on the Missables tab.</p>
+    </div>
+    <div id="roadmap"></div>
+  </section>
+
+  <section id="view-missables" hidden>
+    <div class="panel warn">
+      <h2>Missables &amp; save rules</h2>
+      <p><strong>One confirmed missable element in the whole list:</strong> the Chapter 1 balcony meditation that counts
+      toward <em>Positive Mental Attitude</em>. Everything else — every side-strand finale, collectible and crime trophy —
+      stays available after the credits.</p>
+      <ul>
+        <li><strong>No mission replay, no New Game Plus.</strong> A finished story mission cannot be selected again, so keep a manual save at the start of every chapter and one untouched save from just before the final mission. The game gives you 15 manual slots plus an autosave.</li>
+        <li><strong>Do the balcony meditation in Chapter 1.</strong> After Lucia is home, check the kitchen in the morning (a morning after the mission Down to Earth is the usual time): she heads to the balcony of Jason's house to meditate. Follow her and accept the optional task. It is gone once Chapter 1 ends. Whether the trophy strictly needs that one spot is unconfirmed — do it anyway, and keep the Chapter 1 save until the trophy pops.</li>
+        <li><strong>Race Against Yago is time-sensitive.</strong> This Chapter 3 race in Yago's street racing strand (hourglass icon) counts toward Strangers &amp; Freaks. Save first, then race it the moment it appears.</li>
+        <li><strong>Never use cheats on your trophy save.</strong> Cheats switch off trophies and saving.</li>
+      </ul>
+      <p class="src">Built from the official trophy descriptions; save and missable reporting: Output Lag — GTA 6 Trophy List (see Sources in the footer).</p>
+    </div>
+    <div class="cards" id="missable-cards"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <h2>Sources</h2>
+  <ul id="source-list"></ul>
+  <p>Trophy names, descriptions and grades are the official PlayStation text, as listed by Exophase and PSNProfiles on 18 November 2026.
+  Every guide is written for this entry in its own words and names its source beside the trophy. This is an unofficial fan-made guide:
+  it is not affiliated with Rockstar Games or PlayStation, and uses no Rockstar artwork or logos.</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
